@@ -1,0 +1,83 @@
+.wrap_comment {
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 auto;
+	border: 1px solid #808080;
+}
+
+.wrap_n {
+	width: 100%;
+	height: 80px;
+}
+
+.wrap_poster_film {
+	float: left;
+	width: 75px;
+	height: 80px;
+	border: 1px solid #808080;
+}
+
+.name_film {
+	width: 100%;
+	font-family: 'Neucha', cursive;
+	text-align: left;
+	font-size: 20px;
+}
+
+.name_person {
+	width: 100%;
+	font-family: 'Neucha', cursive;
+	text-align: left;
+	font-size: 20px;
+}
+
+.comment_full {
+	width: 100%;
+	border: 1px solid #808080;
+	background: #ffffff;
+}
+
+.data_comment {
+	font-family: 'Neucha', cursive;
+	text-align: left;
+	font-size: 20px;
+	width: 100%;
+}
+
+.wrap_assssesment {
+	width: 100%;
+	height: 40px;
+}
+
+.wrap_butt {
+	float: left;
+	width: 48%;
+	height: 30px;
+	margin: 0;
+	padding: 7px;
+	font-family: 'Neucha', cursive;
+	text-align: center;
+	border: none;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background: #c0c0c0;
+	font-size: 25px;
+}
+
+.wrapp_first {
+	float: left;
+	width: 45%;
+	height: 80px;
+	background: #ffffff;
+}
+
+.wrapp_second {
+	float: left;
+	width: 45%;
+	height: 80px;
+	background: #ffffff;
+}
+
+.type1 {
+	color: #004080;
+}

@@ -1,0 +1,16 @@
+.wrap_aside_info {
+	width: 120px;
+	height: 190px;
+	display: inline-block;
+	margin-bottom: 5px;
+	background: #ffffff;
+	margin-left: 25px;
+	font-size: 18px;
+	text-shadow: #8080800 2px 0;
+	text-align: center;
+}
+
+.image {
+	width: 120px;
+	height: 168px;
+}

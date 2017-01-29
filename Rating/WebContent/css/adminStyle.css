@@ -1,0 +1,237 @@
+body {
+	font-family: 'Neucha', cursive;
+	background: #c0c0c0;
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.wrapper {
+	color: #373737;
+	width: 1300px;
+	margin: 0 auto;
+}
+
+.section .bold {
+	width: 100%;
+	font-size: 15px;
+	padding-left: 15px;
+}
+
+.header {
+	width: 100%;
+	height: 85 px;
+	background: #708496;
+}
+
+.main {
+	margin-top: 5px;
+	float: right;
+	width: 75%;
+	background: #ccc;
+	height: 1800px;
+}
+
+.aside {
+	margin-top: 5px;
+	float: left;
+	width: 24%;
+	background: #808080;
+	height: 1800px;
+}
+
+.footer {
+	margin-top: 5px;
+	float: left;
+	width: 100%;
+	height: 50px;
+	background: #808080;
+}
+
+.wrap_p {
+	float: left;
+	width: 100%;
+}
+
+.locale {
+	padding-left: 20px;
+	padding-top: 10px;
+	float: left;
+	width: 140px;
+}
+
+.lock {
+	float: left;
+	margin-right: 2%;
+	margin-bottom: 5px;
+}
+
+.logout {
+	float: right;
+	width: 300px;
+	height: 100%;
+	margin-top: 5px;
+}
+
+img {
+	width: 70px;
+	height: 90px;
+}
+
+.ava {
+	float: right;
+	width: 40px;
+	border: 1px solid #ccc;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.avatar {
+	width: 40px;
+	height: 50px;
+}
+
+.ad_dat {
+	margin: 0;
+	text-align: right;
+	float: right;
+}
+
+.ad_dat p {
+	padding: 0;
+	margin: 0;
+}
+
+.wrapp_add {
+	margin-top: 5px;
+}
+
+.wrapp_add input, label, select, textarea {
+	padding: 3px;
+	border: none;
+	border-radius: 5px;
+	width: 450px;
+	margin-bottom: 15px;
+	height: 30px;
+}
+
+textarea {
+	width: 450px;
+	height: 150px;
+}
+
+fieldset {
+	width: 785px;
+}
+
+.span input, select, textarea {
+	display: block;	
+	
+}
+
+.list {
+	height: 35px;
+	width: 457px;
+}
+
+.list1 {
+	height: 70px;
+	width: 457px;
+}
+
+.but_login {
+	width: 100px;
+}
+
+.but {
+	font-size: 24px;
+	text-shadow: #000040 0 1px 0;
+	text-align: center;
+	color: #808080;
+	width: 100%;
+	height: 70px;
+}
+
+.but a {
+	outline: none;
+	color: #808080;
+}
+
+.but a:visited {
+	color: #000080;
+}
+
+.wrap_login {
+	width: 400px;
+	float: right;
+}
+
+.login {
+	width: 150px;
+	height: 20px;
+	font-size: 15px;
+}
+
+.but_search {
+	float: right;
+	width: 70px;
+	height: 52px;
+	font-size: 15px;
+	color: #808080;
+}
+
+.wrap_log {
+	float: left;
+	width: 150px;
+	height: 40px;
+}
+
+.info {
+	margin-left: 20px;
+	margin-top: 5px;
+	float: left;
+	width: 500px;
+	height: 52px;
+	text-align: center;
+	font-size: 20px;
+	color: #000080;
+}
+
+.icon {
+	width: 30px;
+	height: 45px;
+}
+
+.image {
+	width: 30px;
+	height: 21px;
+}
+
+.but1 {
+	font-size: 14px;
+	text-shadow: #000040 0 1px 0;
+	text-align: center;
+	color: #808080;
+	width: 204px;
+	height: 23px;
+}
+
+.but2 {
+	font-size: 14px;
+	text-shadow: #000040 0 1px 0;
+	text-align: center;
+	color: #808080;
+	width: 200px;
+	height: 23px;
+}
+
+a:active, a:visited, a {
+	text-decoration: none;
+	color: #000080;
+}
+
+.link {
+	color: #000080;
+	text-decoration: none;
+}

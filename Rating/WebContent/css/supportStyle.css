@@ -1,0 +1,211 @@
+.section {
+	width: 100%;
+	padding-left: 7px;
+	padding-right: 7px;
+}
+
+.input {
+	padding: 7px;
+	width: 300px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background: #fff;
+}
+
+.label {
+	float: left;
+	width: 200px;
+	height: 30px;
+	margin: 5px auto;
+	font-family: 'Neucha', cursive;
+	font-size: 20px;
+	text-shadow: 4px 4px 4px #aaa;
+}
+
+.span {
+	color: black;
+	width: 300px;
+	height: 20px;
+}
+
+.n {
+	width: 300px;
+	font-family: 'Neucha', cursive;
+	font-size: 20px;
+	text-shadow: 4px 4px 4px #aaa;
+}
+
+.sub {
+	margin: 5px auto;
+	padding: 7px;
+	text-align: center;
+	width: 314px;
+	font-family: 'Neucha', cursive;
+	font-size: 20px;
+	text-shadow: 4px 4px 4px #aaa;
+}
+
+h2 {
+	font-family: 'Neucha', cursive;
+	font-size: 30px;
+	text-shadow: 4px 4px 4px #aaa;
+}
+
+.avatar {
+	float: left;
+	width: 200px;
+	height: 245px;
+	border: 1px solid #ccc;
+	position: relative;
+	top: 10px;
+	right: -10px;
+}
+
+.wrap_avatar {
+	float: left;
+	width: 200px;
+	height: 245px;
+	border: 1px solid #ccc;
+	position: relative;
+	top: -9px;
+	left: 0px;
+	background: #ccc;
+	margin-right:40px;
+}
+
+.personal_data {
+	width: 300px;
+	text_align: center;
+	float: left;
+	padding: 7px;
+}
+
+data {
+	font-family: 'Neucha', cursive;
+	font-size: 18px;
+	text-shadow: 4px 4px 4px #aaa;
+}
+
+.data {
+	font-family: 'Neucha', cursive;
+	font-size: 18px;
+	text-shadow: 4px 4px 4px #aaa;
+}
+
+p:data {
+	font-size: 15px;
+}
+
+.change {
+	float: left;
+	width: 100%
+}
+
+.sub1 {
+	margin: 5px auto;
+	text_align: center;
+	width: 230px;
+	height: 30px;
+	font-family: 'Neucha', cursive;
+	font-size: 20px;
+	text-shadow: 4px 4px 4px #aaa;
+}
+
+.wrap_comment {
+	width: 100%;
+	background: #ccc;
+}
+
+.wrap_poster_film {
+	float: left;
+	width: 60px;
+	height: 86px;
+	background: #ccc;
+}
+
+.name_film {
+	float: left;
+	text_align: center;
+	background: #ccc;
+}
+
+.title1 {
+	font-family: 'Neucha', cursive;
+	font-size: 27px;
+	color: black;
+}
+
+.comment_full {
+	background: #fff;
+	font-family: 'Neucha', cursive;
+	font-size: 15px;
+	overflow: auto;
+	width: 100%;
+}
+
+td img {
+	width: 60px;
+	height: 86px;
+	background: #ccc;
+}
+
+td a {
+	width: 60px;
+	height: 86px;
+	font-family: 'Neucha', cursive;
+	font-size: 20px;
+	color: black;
+}
+
+.a1 {
+	width: 150px;
+	height: 86px;
+	text-align: center;
+	background: #ccc;
+	font-family: 'Neucha', cursive;
+	font-size: 20px;
+	color: black;
+}
+
+.a2 {
+	width: 220px;
+	height: 86px;
+	text-align: center;
+	background: #ccc;
+	font-family: 'Neucha', cursive;
+	font-size: 20px;
+	color: black;
+}
+
+.wrapp_fuche {
+	position: relative;
+	top: -140px;
+	left: 0px;
+}
+
+.link {
+	color: black;
+}
+
+textarea {
+	width: 280px;
+}
+
+.comment1 {
+	text-align: center;
+	margin-bottom: 10px;
+	width: 100%;
+	background: #c0c0c0;
+	font-family: 'Neucha', cursive;
+	font-size: 20px;
+	border: 1px solid #373737;
+}
+
+
+.wrap_title_rating {
+	width: 100%;
+	color: #000000;
+	font-family: 'Neucha', cursive;
+	font-size: 20px;
+	text-align: center;
+}

@@ -1,0 +1,56 @@
+body {
+	background: #222 url("../images/bg.jpg") 0 0;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+a, input {
+	outline: none !important;
+}
+
+.wrapper {
+	width: 960px;
+	margin: 0 auto;
+	position: relative;
+	text-align: center;
+}
+
+#whoops {
+	width: 683px;
+	height: 350px;
+	background: url("../images/rm.jpg") no-repeat;
+	margin: 0 auto;
+}
+
+.content {
+	text-align: center;
+}
+
+.content p {
+	font-weight: bold;
+	font-size: 13px;
+	font-family: arial, helvetica, sans-serif;
+	color: #555;
+	line-height: 20px;
+	margin: 20px 0px 15px 0px;
+}
+
+#divider {
+	width: 578px;
+	height: 30px;
+	background: url("../images/line.png") no-repeat;
+	margin: 0 auto;
+}
+
+a {
+	text-decoration: none;
+	color: #777;
+	line-height: 20px;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #333;
+	line-height: 20px;
+}
