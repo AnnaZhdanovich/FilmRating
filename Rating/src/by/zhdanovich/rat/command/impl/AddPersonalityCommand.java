@@ -40,12 +40,11 @@ public class AddPersonalityCommand implements ICommand {
 	 */
 	@Override
 	public void execute(HttpServletRequest request, Carrier carrier) throws CommandException {
-
-		HttpSession session = request.getSession();
 		carrier.put(CommandParameter.METHOD, CommandParameter.SEND_REDIRECT);
+		HttpSession session = request.getSession();
 
 		if (Validator.checkAuthorisation(session)) {
-			request.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
+			session.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
 			return;
 		}
 

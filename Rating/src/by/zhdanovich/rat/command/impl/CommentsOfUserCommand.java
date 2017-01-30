@@ -45,9 +45,7 @@ public class CommentsOfUserCommand implements ICommand {
 			request.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
 			return;
 		}
-
 		try {
-
 			String idUser = request.getParameter(CommandParameter.UID_USER);
 			String pageIn = request.getParameter(CommandParameter.PAGE);
 

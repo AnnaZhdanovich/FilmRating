@@ -33,21 +33,23 @@ public class UpdateFilmPersonalityCommand implements ICommand {
 	 * @param request
 	 *            request of user
 	 * @param carrier
-	 *            object which in itself contains the information on the basis of
-	 *            which will be selected method of sending a response to client.
+	 *            object which in itself contains the information on the basis
+	 *            of which will be selected method of sending a response to
+	 *            client.
 	 * @throws CommandException
 	 */
 	@Override
 	public void execute(HttpServletRequest request, Carrier carrier) throws CommandException {
-		HttpSession session = request.getSession();
-		carrier.put(CommandParameter.METHOD, CommandParameter.SEND_REDIRECT);
-
-		if (Validator.checkAuthorisation(session)) {
-			session.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
-			return;
-		}
-
 		try {
+
+			HttpSession session = request.getSession();
+			carrier.put(CommandParameter.METHOD, CommandParameter.SEND_REDIRECT);
+
+			if (Validator.checkAuthorisation(session)) {
+				session.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
+				return;
+			}
+
 			String personUid = request.getParameter(CommandParameter.PERSON_UID);
 			String fmUid = request.getParameter(CommandParameter.FILM_UID);
 			String action = request.getParameter(CommandParameter.ACTION);

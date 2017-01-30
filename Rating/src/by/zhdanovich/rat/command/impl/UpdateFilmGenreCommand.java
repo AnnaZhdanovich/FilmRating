@@ -43,7 +43,7 @@ public class UpdateFilmGenreCommand implements ICommand {
 		HttpSession session = request.getSession();
 
 		carrier.put(CommandParameter.METHOD, CommandParameter.SEND_REDIRECT);
-		session.setAttribute(CommandParameter.TARGET, CommandParameter.MAIN);
+		
 		try {
 			if (Validator.checkAuthorisation(session)) {
 				session.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);

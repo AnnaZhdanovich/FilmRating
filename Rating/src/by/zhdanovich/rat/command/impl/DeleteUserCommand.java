@@ -40,13 +40,14 @@ public class DeleteUserCommand implements ICommand {
 
 		if (Validator.checkAuthorisation(session)) {
 			request.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
+			carrier.put(CommandParameter.METHOD, CommandParameter.FORWARD);
+			carrier.put(CommandParameter.PAGE, CommandParameter.PATH_START_USER);
+			session.setAttribute(CommandParameter.TARGET, CommandParameter.MAIN);
 			return;
 		}
-
-		try {
-			
+		
+		try {			
 			int idUser = (int) session.getAttribute(CommandParameter.PARAM_NAME_ID);
-
 			ServiceFactory factory = ServiceFactory.getInstance();
 			IClientService client = factory.getClientService();
 

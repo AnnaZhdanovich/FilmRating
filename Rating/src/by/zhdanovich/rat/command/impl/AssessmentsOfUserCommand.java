@@ -41,20 +41,20 @@ public class AssessmentsOfUserCommand implements ICommand {
 	 */
 	@Override
 	public void execute(HttpServletRequest request, Carrier carrier) throws CommandException {
-		HttpSession session = request.getSession();
-
-		carrier.put(CommandParameter.METHOD, CommandParameter.FORWARD);
-		carrier.put(CommandParameter.PAGE, CommandParameter.PATH_START_USER);
-
-		if (Validator.checkAuthorisation(session)) {
-			request.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
-			return;
-		}
-
-		String idUser = request.getParameter(CommandParameter.UID_USER);
-		String pageIn = request.getParameter(CommandParameter.PAGE);
-
 		try {
+			HttpSession session = request.getSession();
+
+			carrier.put(CommandParameter.METHOD, CommandParameter.FORWARD);
+			carrier.put(CommandParameter.PAGE, CommandParameter.PATH_START_USER);
+
+			if (Validator.checkAuthorisation(session)) {
+				request.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
+				return;
+			}
+
+			String idUser = request.getParameter(CommandParameter.UID_USER);
+			String pageIn = request.getParameter(CommandParameter.PAGE);
+
 			int page = CommandParameter.PAGE_DEFAULT;
 
 			if (Validator.check(pageIn))

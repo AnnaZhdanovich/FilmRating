@@ -36,20 +36,22 @@ public class AddFilmCommand implements ICommand {
 	 * @param request
 	 *            request of user
 	 * @param carrier
-	 *            object which in itself contains the information on the basis of
-	 *            which will be selected method of sending a response to client.
+	 *            object which in itself contains the information on the basis
+	 *            of which will be selected method of sending a response to
+	 *            client.
 	 * @throws CommandException
 	 * 
 	 */
 
 	@Override
 	public void execute(HttpServletRequest request, Carrier carrier) throws CommandException {
+		
 		carrier.put(CommandParameter.METHOD, CommandParameter.SEND_REDIRECT);
-
+		
 		HttpSession session = request.getSession();
 
 		if (Validator.checkAuthorisation(session)) {
-			request.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
+			session.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
 			return;
 		}
 

@@ -33,19 +33,20 @@ public class UpdateDataOfUserCommand implements ICommand {
 	 * @param request
 	 *            request of user
 	 * @param carrier
-	 *            object which in itself contains the information on the basis of
-	 *            which will be selected method of sending a response to client.
+	 *            object which in itself contains the information on the basis
+	 *            of which will be selected method of sending a response to
+	 *            client.
 	 * @throws CommandException
 	 */
 	@Override
 	public void execute(HttpServletRequest request, Carrier carrier) throws CommandException {
-		carrier.put(CommandParameter.PAGE, CommandParameter.PATH_START_USER);
-		carrier.put(CommandParameter.METHOD, CommandParameter.FORWARD);
-		HttpSession session = request.getSession();
-		session.setAttribute(CommandParameter.TARGET, CommandParameter.MAIN);
 		try {
+
+			carrier.put(CommandParameter.METHOD, CommandParameter.SEND_REDIRECT);
+			HttpSession session = request.getSession();
+
 			if (Validator.checkAuthorisation(session)) {
-				request.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
+				session.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
 				return;
 			}
 
@@ -65,15 +66,15 @@ public class UpdateDataOfUserCommand implements ICommand {
 				boolean result = clientService.updateUserData(firstname, login, password, email, user_id);
 
 				if (result) {
-					request.setAttribute(CommandParameter.MESSAGE_UPDATE_USER, CommandParameter.MESSAGE);
+					session.setAttribute(CommandParameter.MESSAGE_UPDATE_USER, CommandParameter.MESSAGE);
 
 				} else {
-					request.setAttribute(CommandParameter.ERROR_UPDATE_MESSAGE, CommandParameter.MESSAGE);
+					session.setAttribute(CommandParameter.ERROR_UPDATE_MESSAGE, CommandParameter.MESSAGE);
 
 				}
 			} else {
 
-				request.setAttribute(CommandParameter.ERROR_DATA, CommandParameter.MESSAGE);
+				session.setAttribute(CommandParameter.ERROR_DATA, CommandParameter.MESSAGE);
 
 			}
 		} catch (ServiceException e) {

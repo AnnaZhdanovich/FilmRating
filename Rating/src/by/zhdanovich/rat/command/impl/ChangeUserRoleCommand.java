@@ -38,14 +38,16 @@ public class ChangeUserRoleCommand implements ICommand {
 	 */
 	@Override
 	public void execute(HttpServletRequest request, Carrier carrier) throws CommandException {
+		try {
+			
 		carrier.put(CommandParameter.METHOD, CommandParameter.SEND_REDIRECT);
 		HttpSession session = request.getSession();
 
 		if (Validator.checkAuthorisation(session)) {
-			request.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
+			session.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);			
 			return;
 		}
-		try {
+		
 			String idUser = request.getParameter(CommandParameter.PARAM_NAME_ID);
 			String role = request.getParameter(CommandParameter.ROLE);
 

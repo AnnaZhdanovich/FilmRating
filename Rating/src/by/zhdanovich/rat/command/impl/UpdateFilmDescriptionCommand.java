@@ -42,7 +42,7 @@ public class UpdateFilmDescriptionCommand implements ICommand {
 		carrier.put(CommandParameter.METHOD, CommandParameter.SEND_REDIRECT);
 
 		HttpSession session = request.getSession();
-		session.setAttribute(CommandParameter.TARGET, CommandParameter.MAIN);
+				
 		if (Validator.checkAuthorisation(session)) {
 			session.setAttribute(CommandParameter.ERROR_AUTHORISATION_MESSAGE, CommandParameter.MESSAGE);
 			return;
