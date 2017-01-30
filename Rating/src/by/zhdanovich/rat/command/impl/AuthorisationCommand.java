@@ -6,7 +6,7 @@ import by.zhdanovich.rat.command.exception.CommandException;
 import by.zhdanovich.rat.command.ICommand;
 import by.zhdanovich.rat.command.util.CommandParameter;
 import by.zhdanovich.rat.command.util.Validator;
-import by.zhdanovich.rat.controller.Carrier;
+import by.zhdanovich.rat.controller.util.Carrier;
 import by.zhdanovich.rat.entity.User;
 import by.zhdanovich.rat.entity.User.Status;
 import by.zhdanovich.rat.service.IClientService;
@@ -41,7 +41,7 @@ public class AuthorisationCommand implements ICommand {
 	public void execute(HttpServletRequest request, Carrier carrier) throws CommandException {
 
 		carrier.put(CommandParameter.METHOD, CommandParameter.SEND_REDIRECT);
-		
+
 		HttpSession session = request.getSession();
 
 		User user = null;

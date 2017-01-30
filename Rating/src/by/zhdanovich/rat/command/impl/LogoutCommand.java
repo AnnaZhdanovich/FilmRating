@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import by.zhdanovich.rat.command.exception.CommandException;
 import by.zhdanovich.rat.command.ICommand;
 import by.zhdanovich.rat.command.util.CommandParameter;
-import by.zhdanovich.rat.controller.Carrier;
+import by.zhdanovich.rat.controller.util.Carrier;
 
 /**
  * Class {@code LogoutCommand} class is used to kill the session.

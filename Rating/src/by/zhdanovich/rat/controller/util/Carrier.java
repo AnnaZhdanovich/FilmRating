@@ -1,9 +1,11 @@
-package by.zhdanovich.rat.controller;
+package by.zhdanovich.rat.controller.util;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The class is a  utility class.
+ * 
  * The class is a wrapper for a map which is stored and transmitted the
  * parameters that define the way to send the user to answer.
  * 
@@ -14,7 +16,7 @@ import java.util.Map;
 public class Carrier {
 
 	private Map<String, String> map;
-
+	
 	public Carrier() {
 		map = new HashMap<String, String>();
 	}

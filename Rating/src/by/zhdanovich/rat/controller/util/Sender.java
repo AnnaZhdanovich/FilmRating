@@ -1,4 +1,4 @@
-package by.zhdanovich.rat.controller;
+package by.zhdanovich.rat.controller.util;
 
 import java.io.IOException;
 import java.util.Map;
@@ -10,23 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * The class is a  utility class.
+ * 
  * The class, which is engaged in sending data of processing request of client.
  * 
  * @author Anna
  *
  */
-class Sender {
-	private static final String METHOD = "method";
-	private static final String SEND_REDIRECT = "sendRedirect";
-	private static final String FORWARD = "forward";
-	private static final String PAGE = "page";
-	private static final String PREVIOUS_URL = "previousUrl";
-	private static final String NOT_ACT = "noAct";
-	private static final String AMPERSAND = "&";
-	private static final String QUEST_MARK = "?";
-	private static final String EQ = "=";
-	private static final String PATH_ERROR = "/jsp/error/error.jsp";
-	private static final String PATH_INDEX = "/index.jsp";
+public class Sender {
 
 	/**
 	 * Here defined way to go to the client's page.
@@ -39,33 +30,38 @@ class Sender {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	void send(HttpServletRequest request, HttpServletResponse response, Carrier carrier)
+	public void send(HttpServletRequest request, HttpServletResponse response, Carrier carrier)
 			throws ServletException, IOException {
-		switch (carrier.get(METHOD)) {
-		case FORWARD:
+		RequestDispatcher dispatcher;
+		switch (carrier.get(ControllerParameter.METHOD)) {
+		case ControllerParameter.FORWARD:
 			takePreviousUrl(request);
-			if (carrier.get(PAGE) != null && !carrier.get(PAGE).isEmpty()) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher(carrier.get(PAGE).trim());
+			if (carrier.get(ControllerParameter.PAGE) != null && !carrier.get(ControllerParameter.PAGE).isEmpty()) {
+				dispatcher = request.getRequestDispatcher(carrier.get(ControllerParameter.PAGE).trim());
 				dispatcher.forward(request, response);
 			} else {
-				String page = PATH_ERROR;
-				RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+				String page = ControllerParameter.PATH_ERROR;
+				dispatcher = request.getRequestDispatcher(page);
 				dispatcher.forward(request, response);
 			}
 			break;
-		case SEND_REDIRECT:
+		case ControllerParameter.SEND_REDIRECT:
 			HttpSession session = request.getSession(false);
-			String url = (String) session.getAttribute(PREVIOUS_URL);
+			String url = (String) session.getAttribute(ControllerParameter.PREVIOUS_URL);
 			if (url != null && !url.isEmpty()) {
 				response.sendRedirect(url);
 			} else {
-				response.sendRedirect(request.getContextPath() + PATH_INDEX);
+				response.sendRedirect(request.getContextPath() + ControllerParameter.PATH_INDEX);
 			}
 			break;
-		case NOT_ACT:
+		case ControllerParameter.ERROR:
+			dispatcher = request.getRequestDispatcher(ControllerParameter.PATH_ERROR);
+			dispatcher.forward(request, response);
+			break;
+		case ControllerParameter.NOT_ACT:
 			return;
 		default:
-			RequestDispatcher dispatcher = request.getRequestDispatcher(PATH_ERROR);
+			dispatcher = request.getRequestDispatcher(ControllerParameter.PATH_ERROR);
 			dispatcher.forward(request, response);
 			break;
 		}
@@ -87,16 +83,16 @@ class Sender {
 		int count = 0;
 		for (String k : keys) {
 			if (count == 0) {
-				url += QUEST_MARK + k + EQ + params.get(k)[0];
+				url += ControllerParameter.QUEST_MARK + k + ControllerParameter.EQ + params.get(k)[0];
 			} else {
 
-				url += AMPERSAND + k + EQ + params.get(k)[0];
+				url += ControllerParameter.AMPERSAND + k + ControllerParameter.EQ + params.get(k)[0];
 			}
 			count++;
 		}
 		HttpSession session = request.getSession(false);
 		if (session != null) {
-			session.setAttribute(PREVIOUS_URL, url);
+			session.setAttribute(ControllerParameter.PREVIOUS_URL, url);
 		}
 	}
 }

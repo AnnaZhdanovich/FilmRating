@@ -7,7 +7,7 @@ import by.zhdanovich.rat.command.exception.CommandException;
 import by.zhdanovich.rat.command.ICommand;
 import by.zhdanovich.rat.command.util.CommandParameter;
 import by.zhdanovich.rat.command.util.Validator;
-import by.zhdanovich.rat.controller.Carrier;
+import by.zhdanovich.rat.controller.util.Carrier;
 import by.zhdanovich.rat.service.IAdminService;
 import by.zhdanovich.rat.service.exception.ServiceException;
 import by.zhdanovich.rat.service.factory.ServiceFactory;

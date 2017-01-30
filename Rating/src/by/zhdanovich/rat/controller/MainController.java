@@ -7,10 +7,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import by.zhdanovich.rat.controller.util.Sender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import by.zhdanovich.rat.command.exception.CommandException;
 import by.zhdanovich.rat.command.factory.CommandFactory;
+import by.zhdanovich.rat.controller.util.Carrier;
+import by.zhdanovich.rat.controller.util.ControllerParameter;
 import by.zhdanovich.rat.command.ICommand;
 
 /**
@@ -86,6 +89,7 @@ public class MainController extends HttpServlet {
 			}
 		} catch (CommandException e) {
 			log.error("You got a mistake in execute command", e);
+			carrier.put(ControllerParameter.METHOD, ControllerParameter.ERROR);
 		}
 		Sender sender = new Sender();
 		sender.send(request, response, carrier);
