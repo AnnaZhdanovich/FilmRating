@@ -2,6 +2,7 @@ package by.zhdanovich.rat.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import by.zhdanovich.rat.entity.User.Status;
@@ -23,7 +24,7 @@ public class Film implements Serializable {
 	/**
 	 * The rating of the film.
 	 */
-	private int rating;
+	private float rating;
 	/**
 	 * The country of the film.
 	 */
@@ -57,11 +58,11 @@ public class Film implements Serializable {
 	 */
 	private List<Genre> listGenre;
 	/**
-	 * The data when the film was added.
+	 * The date when the film was added.
 	 */
-	private String date;
+	private Date date;
 	/**
-	 * 
+	 * The status of the film
 	 */
 	private Status statusOfFilm;
 
@@ -81,11 +82,11 @@ public class Film implements Serializable {
 		this.statusOfFilm = statusOfFilm;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -121,11 +122,11 @@ public class Film implements Serializable {
 		this.idFilm = idFilm;
 	}
 
-	public int getRating() {
+	public float getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(float rating) {
 		this.rating = rating;
 	}
 
@@ -195,7 +196,7 @@ public class Film implements Serializable {
 		result = prime * result + ((listGenre == null) ? 0 : listGenre.hashCode());
 		result = prime * result + ((listPersonality == null) ? 0 : listPersonality.hashCode());
 		result = prime * result + ((poster == null) ? 0 : poster.hashCode());
-		result = prime * result + rating;
+		result = (int) (prime * result + rating);
 		result = prime * result + ((statusOfFilm == null) ? 0 : statusOfFilm.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + idFilm;

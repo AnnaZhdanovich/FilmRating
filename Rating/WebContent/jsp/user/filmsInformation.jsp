@@ -34,53 +34,55 @@
 		var="worning_give_comment" />
 	<fmt:message bundle="${loc}" key="localization.give_comment"
 		var="give_comment" />
+	<fmt:message bundle="${loc}" key="localization.add_date" var="add_date" />
 	<div class="wrapper">
-		<div class="main"> 
-		<c:set var="film" value="${requestScope.film}" />
-		<div class="fm_poster">
-			<img src="${film.poster}">
-		</div>
-		<div class="fm_information">
-			<h2>${film.title}</h2>
-			<hr>
-			<h3>${rating_film}</h3>
-			<p>${film.rating} ${out_of_ten}</p>
-			<hr>
-
-			<h3>${year}</h3>
-			<p>${film.year}</p>
-			<h3>${country }</h3>
-			<p>${film.country.name}</p>
-			<h3>${genres }</h3>
-			<p>
-				<c:forEach var="ganre" items="${film.listGenre}" varStatus="stat">
+		<div class="main">
+			<c:set var="film" value="${requestScope.film}" />
+			<div class="fm_poster">
+				<img src="${film.poster}">
+			</div>
+			<div class="fm_information">
+				<h2>${film.title}</h2>
+				<hr>
+				<h3>${rating_film}</h3>
+				<p>${film.rating}${out_of_ten}</p>
+				<hr>
+				<h3>${year}</h3>
+				<p>${film.year}</p>
+				<h3>${country }</h3>
+				<p>${film.country.name}</p>
+				<h3>${genres }</h3>
+				<p>
+					<c:forEach var="ganre" items="${film.listGenre}" varStatus="stat">
 			  ${ganre.name}; 
 			  </c:forEach>
-			</p>
-			<h3>${producer}</h3>
-			<p>
-				<c:forEach var="producer" items="${film.listPersonality}"
-					varStatus="stat">
-					<c:if test="${producer.role=='PRODUCER'}">
+				</p>
+				<h3>${producer}</h3>
+				<p>
+					<c:forEach var="producer" items="${film.listPersonality}"
+						varStatus="stat">
+						<c:if test="${producer.role=='PRODUCER'}">
 			  ${producer.firstName} ${producer.lastName}; 
 			  </c:if>
-				</c:forEach>
-			</p>
-			<h3>${actor}</h3>
-			<p>
-				<c:forEach var="actor" items="${film.listPersonality}"
-					varStatus="stat">
-					<c:if test="${actor.role=='ACTOR'}">
+					</c:forEach>
+				</p>
+				<h3>${actor}</h3>
+				<p>
+					<c:forEach var="actor" items="${film.listPersonality}"
+						varStatus="stat">
+						<c:if test="${actor.role=='ACTOR'}">
 			  ${actor.firstName} ${actor.lastName}; 
 			  </c:if>
-				</c:forEach>
-			</p>
+					</c:forEach>
+				</p>
+				<h3>${add_date}</h3>
+				<p>${film.date}</p>
+			
 			<hr>
 			<h3>${plot}</h3>
 			<p>${film.description}</p>
 			<hr>
 			<h3>${give_an_assessment}</h3>
-
 			<form method="post" action="MainController">
 
 				<input type="hidden" name="command" value="give_assessment" /> <input
@@ -150,7 +152,7 @@
 					class="take_com" type="submit" value="${comment_film }" />
 			</form>
 		</div>
-		</div>
+	</div>
 	</div>
 </body>
 </html>

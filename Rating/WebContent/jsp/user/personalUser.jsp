@@ -70,7 +70,9 @@
 				</div>
 				<div class="data">
 					<h4>${data_reg}</h4>
-					<p>${requestScope.user.dateReg}</p>
+					<p>
+						<fmt:formatDate type="date" value="${requestScope.user.dateReg}" />
+					</p>
 				</div>
 
 			</div>

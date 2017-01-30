@@ -1,6 +1,7 @@
 package by.zhdanovich.rat.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class User implements Serializable {
 	/**
 	 * The date of user registration.
 	 */
-	private String dateReg;
+	private Date dateReg;
 	/**
 	 * The avatar of the the user.
 	 */
@@ -145,11 +146,11 @@ public class User implements Serializable {
 		this.status = status;
 	}
 
-	public String getDateReg() {
+	public Date getDateReg() {
 		return dateReg;
 	}
 
-	public void setDateReg(String dateReg) {
+	public void setDateReg(Date dateReg) {
 		this.dateReg = dateReg;
 	}
 

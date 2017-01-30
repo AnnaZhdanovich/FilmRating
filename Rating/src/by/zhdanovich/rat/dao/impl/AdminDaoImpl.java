@@ -35,7 +35,7 @@ import by.zhdanovich.rat.entity.User.Status;
  */
 public class AdminDaoImpl implements IAdminDao {
 
-	private static final String SQL_TAKE_COMMENTS = "SELECT SQL_CALC_FOUND_ROWS fm_uid, us_f_name, fm_title, fm_poster, as_recal, as_date, as_assessment, as_uid FROM  user  JOIN assessment ON us_uid=user_us_uid JOIN film ON film_fm_uid=fm_uid WHERE as_status_comment='new' AND as_recal is not null GROUP BY as_uid limit ?,?";
+	private static final String SQL_TAKE_COMMENTS = "SELECT SQL_CALC_FOUND_ROWS fm_uid, us_f_name, us_uid, fm_title, fm_poster, as_recal, as_date, as_assessment, as_uid FROM  user  JOIN assessment ON us_uid=user_us_uid JOIN film ON film_fm_uid=fm_uid WHERE as_status_comment='new' AND as_recal is not null GROUP BY as_uid limit ?,?";
 	private static final String SQL_BLOKING = "UPDATE user SET us_status=? WHERE us_uid=?";
 	private static final String SQL_CHANGE_ROLE = "UPDATE user SET us_role=? WHERE us_uid=?";
 	private static final String SQL_UNBLOCKING_COMMENT = "UPDATE assessment SET as_status_comment=? WHERE as_uid=?";
@@ -216,7 +216,7 @@ public class AdminDaoImpl implements IAdminDao {
 				ps = con.prepareStatement(SQL_ADD_FILM);
 				ps.setString(1, title);
 				ps.setString(2, country);
-				ps.setInt(3, DAOParameter.START_RATING);
+				ps.setFloat(3, DAOParameter.START_RATING);
 				ps.setString(4, year);
 				ps.setString(5, description);
 				ps.setString(6, name);
@@ -578,11 +578,12 @@ public class AdminDaoImpl implements IAdminDao {
 			while (rs.next()) {
 				comment = new Comment();
 				comment.getFilm().setTitle(rs.getString(DAOParameter.FM_TITLE));
-				comment.setDate(rs.getString(DAOParameter.AS_DATE));
+				comment.setDate(rs.getDate(DAOParameter.AS_DATE));
 				comment.setText(rs.getString(DAOParameter.AS_RECAL));
 				comment.setIdComment(rs.getInt(DAOParameter.AS_UID));
 				comment.getFilm().setPoster(rs.getString(DAOParameter.FM_POSTER));
 				comment.getUser().setFirstName(rs.getString(DAOParameter.US_F_NAME));
+				comment.getUser().setIdUser(rs.getInt(DAOParameter.US_UID));
 				comments.add(comment);
 			}
 			rs.close();
@@ -676,10 +677,10 @@ public class AdminDaoImpl implements IAdminDao {
 					film.getCountry().setIdCountry(rs.getInt(DAOParameter.C_UID));
 					film.setDescription(rs.getString(DAOParameter.FM_DESCRIPTION));
 					film.setPoster(rs.getString(DAOParameter.FM_POSTER));
-					film.setRating(rs.getInt(DAOParameter.FM_RATING));
+					film.setRating(rs.getFloat(DAOParameter.FM_RATING));
 					film.setYear(rs.getString(DAOParameter.FM_YEAR));
 					film.setTitle(rs.getString(DAOParameter.FM_TITLE));
-					film.setDate(rs.getString(DAOParameter.FM_DATE));
+					film.setDate(rs.getDate(DAOParameter.FM_DATE));
 					film.setStatusOfFilm(Status.valueOf(rs.getString(DAOParameter.FM_STATUS).toUpperCase()));
 					list.add(film);
 				}
@@ -762,7 +763,7 @@ public class AdminDaoImpl implements IAdminDao {
 				result.setStatus(Status.valueOf(rs.getString(DAOParameter.US_STATUS).toUpperCase()));
 				result.setRating(Integer.parseInt(rs.getString(DAOParameter.US_RATING)));
 				result.setImage(rs.getString(DAOParameter.US_IMAGE));
-				result.setDateReg(rs.getString(DAOParameter.US_DATE));
+				result.setDateReg(rs.getDate(DAOParameter.US_DATE));
 				result.setLogin(rs.getString(DAOParameter.US_LOGIN));
 				result.setEmail(rs.getString(DAOParameter.US_EMAIL));
 				result.setRole(Role.valueOf(rs.getString(DAOParameter.US_ROLE).toUpperCase()));
@@ -823,7 +824,7 @@ public class AdminDaoImpl implements IAdminDao {
 				request.getUser().setFirstName(rs.getString(DAOParameter.US_F_NAME));
 				request.setText(rs.getString(DAOParameter.RQ_TEXT));
 				request.setStatus(StatusOfRequest.valueOf(rs.getString(DAOParameter.RQ_STATUS).toUpperCase()));
-				request.setDate(rs.getString(DAOParameter.RQ_DATE));
+				request.setDate(rs.getDate(DAOParameter.RQ_DATE));
 				request.getUser().setIdUser(rs.getInt(DAOParameter.US_UID));
 				requests.add(request);
 			}

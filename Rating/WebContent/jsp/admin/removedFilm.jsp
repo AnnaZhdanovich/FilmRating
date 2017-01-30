@@ -53,32 +53,32 @@
 				<c:forEach items="${requestScope.films}" var="film">
 					<tr>
 						<td class="img"><img src="${film.poster}" /></td>
-						<td><c:out value="${film.title}" /></td>
+						<td>${film.title}</td>
 
 						<td><c:forEach items="${film.listGenre}" var="ganre">
 								<p>
-									<c:out value="${ganre.name}" />
+									${ganre.name}
 								</p>
 							</c:forEach>
-						<td><c:out value="${film.country.name}" /></td>
-						<td><c:out value="${film.year}" /></td>
+						<td>${film.country.name}</td>
+						<td>${film.year}</td>
 
 						<td><c:forEach items="${film.listPersonality}" var="actor">
 								<c:if test="${actor.role eq 'ACTOR'}">
 									<p>
-										<c:out value="${actor.firstName} ${actor.lastName}" />
+										${actor.firstName} ${actor.lastName}
 									</p>
 								</c:if>
 							</c:forEach></td>
 						<td><c:forEach items="${film.listPersonality}" var="actor">
 								<c:if test="${actor.role eq 'PRODUCER'}">
 									<p>
-										<c:out value="${actor.firstName}${actor.lastName}" />
+										${actor.firstName}${actor.lastName}
 									</p>
 								</c:if>
 							</c:forEach></td>
-						<td><c:out value="${film.rating}" /></td>
-						<td><c:out value="${film.date}" /></td>
+						<td>${film.rating}</td>
+						<td><fmt:formatDate type="date" value="${film.date}"/></td>
 						<td>
 							<form method="post" action="MainController">
 								<input type="hidden" name="command" value="remove_film">
@@ -102,8 +102,6 @@
 					<td><a
 						href="/Rating/MainController?command=find_removed_films&page=${sessionScope.currentPage-1}">${previous}</a></td>
 				</c:if>
-
-
 				<table border="1" cellpadding="5" cellspacing="5">
 					<tr>
 						<c:forEach begin="1" end="${sessionScope.noOfPages}" var="i">
@@ -119,7 +117,6 @@
 						</c:forEach>
 					</tr>
 				</table>
-
 
 				<c:if test="${sessionScope.currentPage lt sessionScope.noOfPages}">
 					<td><a

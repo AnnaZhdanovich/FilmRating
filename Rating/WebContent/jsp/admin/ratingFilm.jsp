@@ -78,32 +78,26 @@
 				<c:forEach items="${requestScope.films}" var="film">
 					<tr>
 						<td class="img"><img src="${film.poster}" /></td>
-						<td><c:out value="${film.title}" /></td>
+						<td>${film.title}</td>
 
 						<td><c:forEach items="${film.listGenre}" var="ganre">
-								<p>
-									<c:out value="${ganre.name}" />
-								</p>
+								<p>${ganre.name}</p>
 							</c:forEach>
-						<td><c:out value="${film.country.name}" /></td>
-						<td><c:out value="${film.year}" /></td>
+						<td>${film.country.name}</td>
+						<td>${film.year}</td>
 
 						<td><c:forEach items="${film.listPersonality}" var="actor">
 								<c:if test="${actor.role=='ACTOR'}">
-									<p>
-										<c:out value="${actor.firstName} ${actor.lastName}" />
-									</p>
+									<p>${actor.firstName} ${actor.lastName}</p>
 								</c:if>
 							</c:forEach></td>
 						<td><c:forEach items="${film.listPersonality}" var="actor">
 								<c:if test="${actor.role=='PRODUCER'}">
-									<p>
-										<c:out value="${actor.firstName}${actor.lastName}" />
-									</p>
+									<p>${actor.firstName} ${actor.lastName}</p>
 								</c:if>
 							</c:forEach></td>
-						<td><c:out value="${film.rating}" /></td>
-						<td><c:out value="${film.date}" /></td>
+						<td>${film.rating}</td>
+						<td><fmt:formatDate type="date" value="${film.date}" /></td>
 						<td>
 							<form method="post" action="MainController">
 								<input type="hidden" name="command" value="remove_film">

@@ -102,7 +102,7 @@ public class UserDaoImpl implements IUserDao {
 				result.setStatus(Status.valueOf(rs.getString(DAOParameter.US_STATUS).toUpperCase()));
 				result.setRating(Integer.parseInt(rs.getString(DAOParameter.US_RATING)));
 				result.setImage(rs.getString(DAOParameter.US_IMAGE));
-				result.setDateReg(rs.getString(DAOParameter.US_DATE));
+				result.setDateReg(rs.getDate(DAOParameter.US_DATE));
 				result.setEmail(rs.getString(DAOParameter.US_EMAIL));
 				result.setLogin(rs.getString(DAOParameter.US_LOGIN));
 				result.setRole(Role.valueOf(rs.getString(DAOParameter.US_ROLE).toUpperCase()));
@@ -209,7 +209,7 @@ public class UserDaoImpl implements IUserDao {
 			while (rs.next()) {
 				assessment = new Assessment();
 				assessment.getFilm().setTitle(rs.getString(DAOParameter.FM_TITLE));
-				assessment.setDate(rs.getString(DAOParameter.AS_DATE));
+				assessment.setDate(rs.getDate(DAOParameter.AS_DATE));
 				assessment.setValue(rs.getInt(DAOParameter.AS_ASSESSMENT));
 				assessment.getFilm().setIdFilm(rs.getInt(DAOParameter.FM_UID));
 				assessment.getFilm().setPoster(rs.getString(DAOParameter.FM_POSTER));
@@ -264,7 +264,7 @@ public class UserDaoImpl implements IUserDao {
 			while (rs.next()) {
 				comment = new Comment();
 				comment.getFilm().setTitle(rs.getString(DAOParameter.FM_TITLE));
-				comment.setDate(rs.getString(DAOParameter.AS_DATE));
+				comment.setDate(rs.getDate(DAOParameter.AS_DATE));
 				comment.setText(rs.getString(DAOParameter.AS_RECAL));
 				comment.getFilm().setIdFilm(rs.getInt(DAOParameter.FM_UID));
 				comment.getFilm().setPoster(rs.getString(DAOParameter.FM_POSTER));
@@ -469,7 +469,7 @@ public class UserDaoImpl implements IUserDao {
 				film = new Film();
 				film.setIdFilm(rs.getInt(DAOParameter.FM_UID));
 				film.setPoster(rs.getString(DAOParameter.FM_POSTER));
-				film.setRating(rs.getInt(DAOParameter.FM_RATING));
+				film.setRating(rs.getFloat(DAOParameter.FM_RATING));
 				film.setTitle(rs.getString(DAOParameter.FM_TITLE));
 				list.add(film);
 			}

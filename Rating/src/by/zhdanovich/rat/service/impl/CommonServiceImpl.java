@@ -170,7 +170,15 @@ public class CommonServiceImpl implements ICommonService {
 			Collections.sort(list, new Comparator<Film>() {
 				@Override
 				public int compare(Film f1, Film f2) {
-					return f2.getRating() - f1.getRating();
+					if (f1.getRating() < f2.getRating()) {
+						return 1;
+					} else {
+						if (f1.getRating() > f2.getRating()) {
+							return -1;
+						} else {
+							return 0;
+						}
+					}
 				}
 			});
 			Iterator<Film> iter = list.iterator();
@@ -185,7 +193,9 @@ public class CommonServiceImpl implements ICommonService {
 				}
 				count++;
 			}
-		} catch (DAOException e) {
+		} catch (
+
+		DAOException e) {
 			throw new ServiceException("service message", e);
 		}
 		return;
@@ -286,7 +296,7 @@ public class CommonServiceImpl implements ICommonService {
 		ICommonDao common = factory.getCommonDao();
 
 		Map<Integer, Integer> newCountFilm = new HashMap<Integer, Integer>();
-		Map<Integer, Integer> newRatingFilm = new HashMap<Integer, Integer>();
+		Map<Integer, Float> newRatingFilm = new HashMap<Integer, Float>();
 		Map<Integer, Integer> prevCountFilm = new HashMap<Integer, Integer>();
 
 		try {
@@ -321,16 +331,16 @@ public class CommonServiceImpl implements ICommonService {
 	}
 
 	@Override
-	public int findUsersByRating(List<User> list, int offset, int noOfRecords, String type) throws ServiceException {
-		int k = 0;
+	public void findUsersByRating(List<User> list,  String type) throws ServiceException {
+		
 		DAOFactory factory = DAOFactory.getInstance();
 		ICommonDao common = factory.getCommonDao();
 		try {
-			k = common.findUsersByRating(list, offset, noOfRecords, type);
+			common.findUsersByRating(list, type);
 		} catch (DAOException e) {
 			throw new ServiceException("service message", e);
 		}
-		return k;
+		
 	}
 
 	@Override

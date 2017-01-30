@@ -30,7 +30,7 @@
 							<a href=" " onClick="this.parentNode.submit(); return false;">${assessment.film.title}</a>
 						</form></td>
 					<td class="a1">${assessment.value}</td>
-					<td class="a2" >${assessment.date}</td>
+					<td class="a2" ><fmt:formatDate type="date" value="${assessment.date}" /></td>
 				</tr>
 			</c:forEach>			
 		</table>

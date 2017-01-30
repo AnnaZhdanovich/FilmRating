@@ -31,8 +31,7 @@
 		var="worst_user" />
 	<fmt:message bundle="${loc}" key="localization.look" var="look" />
 	<fmt:message bundle="${loc}" key="localization.show" var="show" />
-	<fmt:message bundle="${loc}" key="localization.previous" var="previous" />
-	<fmt:message bundle="${loc}" key="localization.next" var="next" />
+	
 
 
 	<div class="wrapper">
@@ -83,39 +82,9 @@
 						<div class="fm_rating">
 							<c:out value="${user.rating}"></c:out>
 						</div>
-
 					</div>
 				</div>
-			</c:forEach>
-			<c:if test="${not empty requestScope.users }">
-				<c:if test="${sessionScope.currentPage ne 1}">
-					<td><a class="link"
-						href="/Rating/MainController?command=rating_users&goal=${sessionScope.goal}&type=${sessionScope.type}&page=${sessionScope.currentPage-1}">${previous}</a></td>
-				</c:if>
-
-
-				<table border="1" cellpadding="5" cellspacing="5">
-					<tr>
-						<c:forEach begin="1" end="${sessionScope.noOfPages}" var="i">
-							<c:choose>
-								<c:when test="${sessionScope.currentPage eq i}">
-									<td>${i}</td>
-								</c:when>
-								<c:otherwise>
-									<td><a class="link"
-										href="/Rating/MainController?command=rating_users&goal=${sessionScope.goal}&type=${sessionScope.type}&page=${i}">${i}</a></td>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</tr>
-				</table>
-
-
-				<c:if test="${sessionScope.currentPage lt sessionScope.noOfPages}">
-					<td><a class="link"
-						href="/Rating/MainController?command=rating_users&goal=${sessionScope.goal}&type=${sessionScope.type}&page=${sessionScope.currentPage + 1}">${next}</a></td>
-				</c:if>
-			</c:if>
+			</c:forEach>			
 		</div>
 	</div>
 </body>

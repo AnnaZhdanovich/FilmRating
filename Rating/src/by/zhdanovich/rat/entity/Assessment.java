@@ -1,6 +1,7 @@
 package by.zhdanovich.rat.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Class {@code Assessment} describes the assessment of the film left by the
@@ -16,7 +17,7 @@ public class Assessment implements Serializable {
 	/**
 	 * The date when it was set the assessment.
 	 */
-	private String date;
+	private Date date;
 	/**
 	 * The object {@code User} that has set this assessment.
 	 * {@see by.zhdanovich.rat.entity.User}
@@ -41,11 +42,11 @@ public class Assessment implements Serializable {
 		this.value = value;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

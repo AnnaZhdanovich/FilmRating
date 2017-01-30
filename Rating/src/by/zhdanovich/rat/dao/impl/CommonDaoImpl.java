@@ -32,17 +32,17 @@ import by.zhdanovich.rat.entity.User.Status;
  * @author Anna
  */
 public class CommonDaoImpl implements ICommonDao {
-	
+
 	private static final String SQL_REGISTRATION_INSERT = "INSERT INTO user (us_f_name,  us_email, us_login, us_password, us_status, us_role, us_rating, us_image, us_reg_date) value (?,?,?,?,?,?,?,?,?)";
 	private static final String SQL_REGISTRATION_SELECT = "SELECT us_uid, us_f_name, us_role FROM user WHERE user.us_login=? AND user.us_password=? ";
 	private static final String SQL_AUTHORISARION = "SELECT us_uid, us_f_name, us_status, us_role, us_image FROM user WHERE us_login=? AND us_password=?";
-	private static final String SQL_TAKE_COUNT_VOICE = "SELECT fm_uid, count(film_fm_uid) as sum, avg(as_assessment) as avg FROM film LEFT JOIN assessment ON fm_uid=film_fm_uid GROUP BY fm_title";
+	private static final String SQL_TAKE_COUNT_VOICE = "SELECT fm_uid, count(film_fm_uid) as sum, format(avg(as_assessment),1) as avg FROM film LEFT JOIN assessment ON fm_uid=film_fm_uid GROUP BY fm_title";
 	private static final String SQL_UPDATE_RATING_FILM = "UPDATE film SET fm_rating = ? WHERE fm_uid=?";
 	private static final String SQL_SELECT_PREVIOS_COUNT = "SELECT fm_uid, fm_count FROM film";
 	private static final String SQL_UPDATE_PREVIOS_COUNT = "UPDATE film SET fm_count=? WHERE fm_uid=?";
 	private static final String SQL_USER_UID = "SELECT user_us_uid FROM assessment WHERE film_fm_uid=?";
 	private static final String SQL_SELECT_FILM_MAIN = "SELECT SQL_CALC_FOUND_ROWS fm_uid,  fm_title, fm_year, fm_rating, fm_description, fm_poster, fm_date, c_name, c_uid   FROM film left JOIN country ON country_c_uid= c_uid WHERE fm_status !='block'  ORDER BY fm_uid DESC limit ?,?";
-	private static final String SQL_UPDATE_RATING_USER = "Update user  SET us_rating = us_rating + (CASE WHEN ABS(?-(SELECT as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) = 0 THEN   8   WHEN  ABS(?-(SELECT as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) = 1  THEN  7    WHEN  ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) = 2 THEN   4       WHEN  ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) = 3  THEN  1       WHEN  ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) =  4 THEN   0      WHEN  ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) = 5  THEN  -4         WHEN  ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) = 6 THEN  -7   WHEN ABS(?-(SELECT as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) = 7 THEN   -7     	  WHEN  ABS(?-(Select as_assessment from assessment where film_fm_uid=? And user_us_uid=?))= 8 THEN   -10      WHEN  ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) = 9  THEN  -10 ELSE 0 END) where us_uid=? ";
+	private static final String SQL_UPDATE_RATING_USER = "Update user  SET us_rating = us_rating + (CASE WHEN 0 < ABS(?-(SELECT as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) <1 THEN   8   WHEN  1 < ABS(?-(SELECT as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) < 2  THEN  7    WHEN  2< ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) < 3 THEN   4       WHEN  3< ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) < 4  THEN  1       WHEN 4<  ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) < 5 THEN   0      WHEN  5< ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) <6  THEN  -4         WHEN  6< ABS(?-(Select as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) < 7 THEN  -7   WHEN 8< ABS(?-(SELECT as_assessment FROM assessment WHERE film_fm_uid=? And user_us_uid=?)) < 9 THEN   -8     	  WHEN  9< ABS(?-(Select as_assessment from assessment where film_fm_uid=? And user_us_uid=?))< 10  THEN  -10 ELSE 0 END) where us_uid=? ";
 	private static final String SQL_CHEK_LOGIN = "SELECT us_uid FROM user where user.us_login=?";
 	private static final String SQL_TAKE_PERSONALITY = "SELECT ac_uid, ac_f_name, ac_l_name, ac_role FROM actor";
 	private static final String SQL_FIND_BY_ID = "SELECT fm_uid, fm_title, fm_rating, fm_description, fm_poster, fm_date, fm_year, c_name, c_uid  FROM film join country on country_c_uid= c_uid WHERE fm_uid=?";
@@ -65,8 +65,8 @@ public class CommonDaoImpl implements ICommonDao {
 	private static final String SQL_UPDATE_IMAGE = "UPDATE film SET  fm_poster=? WHERE fm_uid=?";
 
 	/**
-	 * User authentication by comparing the input parameters ID and password in database.
-	 * with those that are in the database.
+	 * User authentication by comparing the input parameters ID and password in
+	 * database. with those that are in the database.
 	 * 
 	 * @param login
 	 *            the login of the user
@@ -75,7 +75,7 @@ public class CommonDaoImpl implements ICommonDao {
 	 * @return the type of user object or null
 	 * @throws DAOException
 	 */
-	
+
 	@Override
 	public User authorizeUser(String login, String password) throws DAOException {
 		ProxyConnection con = null;
@@ -148,7 +148,7 @@ public class CommonDaoImpl implements ICommonDao {
 				ps.setString(4, password);
 				ps.setString(5, DAOParameter.UNBLOCK);
 				ps.setString(6, DAOParameter.USER);
-				ps.setInt(7, DAOParameter.START_RATING);
+				ps.setInt(7, DAOParameter.START_RATING_USER);
 				ps.setString(8, name);
 				ps.setString(9, data);
 				ps.executeUpdate();
@@ -284,10 +284,10 @@ public class CommonDaoImpl implements ICommonDao {
 					film.getCountry().setIdCountry(rs.getInt(DAOParameter.C_UID));
 					film.setDescription(rs.getString(DAOParameter.FM_DESCRIPTION));
 					film.setPoster(rs.getString(DAOParameter.FM_POSTER));
-					film.setRating(rs.getInt(DAOParameter.FM_RATING));
+					film.setRating(rs.getFloat(DAOParameter.FM_RATING));
 					film.setYear(rs.getString(DAOParameter.FM_YEAR));
 					film.setTitle(rs.getString(DAOParameter.FM_TITLE));
-					film.setDate(DAOParameter.FM_DATE);
+					film.setDate(rs.getDate(DAOParameter.FM_DATE));
 				} else
 					return film;
 			} finally {
@@ -341,7 +341,7 @@ public class CommonDaoImpl implements ICommonDao {
 	 * @param id
 	 *            identification number of the film
 	 * @param offset
-	 *            the displacement of the records in the list 
+	 *            the displacement of the records in the list
 	 * @param noOfRecords
 	 *            the maximum number of records returned returned
 	 * @return number of records retrieved
@@ -367,7 +367,7 @@ public class CommonDaoImpl implements ICommonDao {
 				comment.getUser().setIdUser(rs.getInt(DAOParameter.US_UID));
 				comment.getUser().setFirstName(rs.getString(DAOParameter.US_F_NAME));
 				comment.getFilm().setTitle(rs.getString(DAOParameter.FM_TITLE));
-				comment.setDate(rs.getString(DAOParameter.AS_DATE));
+				comment.setDate(rs.getDate(DAOParameter.AS_DATE));
 				comment.setText(rs.getString(DAOParameter.AS_RECAL));
 				comment.getFilm().setIdFilm(rs.getInt(DAOParameter.FM_UID));
 				list.add(comment);
@@ -443,10 +443,10 @@ public class CommonDaoImpl implements ICommonDao {
 					film.getCountry().setIdCountry(rs.getInt(DAOParameter.C_UID));
 					film.setDescription(rs.getString(DAOParameter.FM_DESCRIPTION));
 					film.setPoster(rs.getString(DAOParameter.FM_POSTER));
-					film.setRating(rs.getInt(DAOParameter.FM_RATING));
+					film.setRating(rs.getFloat(DAOParameter.FM_RATING));
 					film.setYear(rs.getString(DAOParameter.FM_YEAR));
 					film.setTitle(rs.getString(DAOParameter.FM_TITLE));
-					film.setDate(rs.getString(DAOParameter.FM_DATE));
+					film.setDate(rs.getDate(DAOParameter.FM_DATE));
 					list.add(film);
 				}
 				rs.close();
@@ -543,10 +543,10 @@ public class CommonDaoImpl implements ICommonDao {
 					film.getCountry().setIdCountry(rs.getInt(DAOParameter.C_UID));
 					film.setDescription(rs.getString(DAOParameter.FM_DESCRIPTION));
 					film.setPoster(rs.getString(DAOParameter.FM_POSTER));
-					film.setRating(rs.getInt(DAOParameter.FM_RATING));
+					film.setRating(rs.getFloat(DAOParameter.FM_RATING));
 					film.setYear(rs.getString(DAOParameter.FM_YEAR));
 					film.setTitle(rs.getString(DAOParameter.FM_TITLE));
-					film.setDate(rs.getString(DAOParameter.FM_DATE));
+					film.setDate(rs.getDate(DAOParameter.FM_DATE));
 					list.add(film);
 				}
 				rs.close();
@@ -629,7 +629,7 @@ public class CommonDaoImpl implements ICommonDao {
 				film = new Film();
 				film.setIdFilm(rs.getInt(DAOParameter.FM_UID));
 				film.setPoster(rs.getString(DAOParameter.FM_POSTER));
-				film.setRating(rs.getInt(DAOParameter.FM_RATING));
+				film.setRating(rs.getFloat(DAOParameter.FM_RATING));
 				film.setTitle(rs.getString(DAOParameter.FM_TITLE));
 				list.add(film);
 			}
@@ -667,7 +667,7 @@ public class CommonDaoImpl implements ICommonDao {
 				film = new Film();
 				film.setIdFilm(rs.getInt(DAOParameter.FM_UID));
 				film.setPoster(rs.getString(DAOParameter.FM_POSTER));
-				film.setRating(rs.getInt(DAOParameter.FM_RATING));
+				film.setRating(rs.getFloat(DAOParameter.FM_RATING));
 				film.setTitle(rs.getString(DAOParameter.FM_TITLE));
 				films.add(film);
 			}
@@ -710,7 +710,7 @@ public class CommonDaoImpl implements ICommonDao {
 				com.getUser().setFirstName(rs.getString(DAOParameter.US_F_NAME));
 				com.getFilm().setTitle(rs.getString(DAOParameter.FM_TITLE));
 				com.setText(rs.getString(DAOParameter.AS_RECAL));
-				com.setDate(rs.getString(DAOParameter.AS_DATE));
+				com.setDate(rs.getDate(DAOParameter.AS_DATE));
 				comments.add(com);
 			}
 
@@ -757,7 +757,7 @@ public class CommonDaoImpl implements ICommonDao {
 				film = new Film();
 				film.setIdFilm(rs.getInt(DAOParameter.FM_UID));
 				film.setPoster(rs.getString(DAOParameter.FM_POSTER));
-				film.setRating(rs.getInt(DAOParameter.FM_RATING));
+				film.setRating(rs.getFloat(DAOParameter.FM_RATING));
 				film.setTitle(rs.getString(DAOParameter.FM_TITLE));
 				list.add(film);
 			}
@@ -789,7 +789,7 @@ public class CommonDaoImpl implements ICommonDao {
 	 */
 
 	@Override
-	public void colculateFilmRating(Map<Integer, Integer> newCountFilm, Map<Integer, Integer> newRatingFilm)
+	public void colculateFilmRating(Map<Integer, Integer> newCountFilm, Map<Integer, Float> newRatingFilm)
 			throws DAOException {
 
 		ProxyConnection con = null;
@@ -803,7 +803,7 @@ public class CommonDaoImpl implements ICommonDao {
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					newCountFilm.put(rs.getInt(DAOParameter.FM_UID), rs.getInt(DAOParameter.SUM));
-					newRatingFilm.put(rs.getInt(DAOParameter.FM_UID), rs.getInt(DAOParameter.AVG));
+					newRatingFilm.put(rs.getInt(DAOParameter.FM_UID), rs.getFloat(DAOParameter.AVG));
 				}
 			} finally {
 				IDAO.closeStatement(ps);
@@ -811,7 +811,7 @@ public class CommonDaoImpl implements ICommonDao {
 			ps = con.prepareStatement(SQL_UPDATE_RATING_FILM);
 			Set<Integer> keys = newRatingFilm.keySet();
 			for (Integer s : keys) {
-				ps.setInt(1, newRatingFilm.get(s));
+				ps.setFloat(1, newRatingFilm.get(s));
 				ps.setInt(2, s);
 				ps.executeUpdate();
 			}
@@ -894,7 +894,7 @@ public class CommonDaoImpl implements ICommonDao {
 	 *            new rating of film
 	 */
 	@Override
-	public void colculateUserRating(Integer filmUid, Integer newRating) throws DAOException {
+	public void colculateUserRating(Integer filmUid, Float newRating) throws DAOException {
 		ProxyConnection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs;
@@ -914,37 +914,34 @@ public class CommonDaoImpl implements ICommonDao {
 
 			for (Integer userUid : listUser) {
 				ps = con.prepareStatement(SQL_UPDATE_RATING_USER);
-				ps.setInt(1, newRating);
+				ps.setFloat(1, newRating);
 				ps.setInt(2, filmUid);
 				ps.setInt(3, userUid);
-				ps.setInt(4, newRating);
+				ps.setFloat(4, newRating);
 				ps.setInt(5, filmUid);
 				ps.setInt(6, userUid);
-				ps.setInt(7, newRating);
+				ps.setFloat(7, newRating);
 				ps.setInt(8, filmUid);
 				ps.setInt(9, userUid);
-				ps.setInt(10, newRating);
+				ps.setFloat(10, newRating);
 				ps.setInt(11, filmUid);
 				ps.setInt(12, userUid);
-				ps.setInt(13, newRating);
+				ps.setFloat(13, newRating);
 				ps.setInt(14, filmUid);
 				ps.setInt(15, userUid);
-				ps.setInt(16, newRating);
+				ps.setFloat(16, newRating);
 				ps.setInt(17, filmUid);
 				ps.setInt(18, userUid);
-				ps.setInt(19, newRating);
+				ps.setFloat(19, newRating);
 				ps.setInt(20, filmUid);
 				ps.setInt(21, userUid);
-				ps.setInt(22, newRating);
+				ps.setFloat(22, newRating);
 				ps.setInt(23, filmUid);
 				ps.setInt(24, userUid);
-				ps.setInt(25, newRating);
+				ps.setFloat(25, newRating);
 				ps.setInt(26, filmUid);
 				ps.setInt(27, userUid);
-				ps.setInt(28, newRating);
-				ps.setInt(29, filmUid);
-				ps.setInt(30, userUid);
-				ps.setInt(31, userUid);
+				ps.setInt(28, userUid);
 				ps.executeUpdate();
 			}
 		} catch (ConnectionPoolException e) {
@@ -992,10 +989,10 @@ public class CommonDaoImpl implements ICommonDao {
 				film.getCountry().setIdCountry(rs.getInt(DAOParameter.C_UID));
 				film.setDescription(rs.getString(DAOParameter.FM_DESCRIPTION));
 				film.setPoster(rs.getString(DAOParameter.FM_POSTER));
-				film.setRating(rs.getInt(DAOParameter.FM_RATING));
+				film.setRating(rs.getFloat(DAOParameter.FM_RATING));
 				film.setYear(rs.getString(DAOParameter.FM_YEAR));
 				film.setTitle(rs.getString(DAOParameter.FM_TITLE));
-				film.setDate(rs.getString(DAOParameter.FM_DATE));
+				film.setDate(rs.getDate(DAOParameter.FM_DATE));
 				list.add(film);
 			}
 			rs.close();
@@ -1028,13 +1025,12 @@ public class CommonDaoImpl implements ICommonDao {
 	 * @return number of records retrieved
 	 * @throws DAOException
 	 */
-	@SuppressWarnings("resource")
+	
 	@Override
-	public int findUsersByRating(List<User> list, int offset, int noOfRecords, String type) throws DAOException {
+	public void findUsersByRating(List<User> list, String type) throws DAOException {
 		ProxyConnection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs;
-		int k = 0;
 
 		try {
 			con = ConnectionPool.getInstance().takeConnection();
@@ -1043,8 +1039,8 @@ public class CommonDaoImpl implements ICommonDao {
 			} else {
 				ps = con.prepareStatement(SQL_GET_LIST_USERS_UP);
 			}
-			ps.setInt(1, offset);
-			ps.setInt(2, noOfRecords);
+			ps.setInt(1, DAOParameter.OFFSET_USER);
+			ps.setInt(2, DAOParameter.LIMIT_USER);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				User user = new User();
@@ -1056,14 +1052,10 @@ public class CommonDaoImpl implements ICommonDao {
 				user.setRating(Integer.parseInt(rs.getString(DAOParameter.US_RATING)));
 				user.setRole(Role.valueOf(rs.getString(DAOParameter.US_ROLE).toUpperCase()));
 				user.setImage(rs.getString(DAOParameter.US_IMAGE));
-				user.setDateReg(rs.getString(DAOParameter.US_DATE));
+				user.setDateReg(rs.getDate(DAOParameter.US_DATE));
 				list.add(user);
 			}
-			rs.close();
-			ps = con.prepareStatement(SQL_SELECT_ROWS);
-			rs = ps.executeQuery();
-			if (rs.next())
-				k = rs.getInt(1);
+
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Wrong in ConnectionPool", e);
 		} catch (SQLException e) {
@@ -1073,7 +1065,7 @@ public class CommonDaoImpl implements ICommonDao {
 			IDAO.closeConnection(con);
 
 		}
-		return k;
+
 	}
 
 	/**
@@ -1114,7 +1106,7 @@ public class CommonDaoImpl implements ICommonDao {
 				user.setRating(Integer.parseInt(rs.getString(DAOParameter.US_RATING)));
 				user.setRole(Role.valueOf(rs.getString(DAOParameter.US_ROLE).toUpperCase()));
 				user.setImage(rs.getString(DAOParameter.US_IMAGE));
-				user.setDateReg(rs.getString(DAOParameter.US_DATE));
+				user.setDateReg(rs.getDate(DAOParameter.US_DATE));
 				list.add(user);
 			}
 			rs.close();

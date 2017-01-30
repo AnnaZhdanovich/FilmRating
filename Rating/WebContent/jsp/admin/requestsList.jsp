@@ -37,7 +37,7 @@
 
 						<div class="wrapp_second">
 							<div class="data_comment">${status_message} ${request.status}</div>
-							<div class="data_comment">${date_message} ${request.date}</div>
+							<div class="data_comment">${date_message} <fmt:formatDate type="date" value="${request.date}" /></div>
 						</div>
 					</div>
 					<div class="comment_full">

@@ -1,6 +1,7 @@
 package by.zhdanovich.rat.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Class {@code Comment} describes the comment of the film left by the user.
@@ -20,7 +21,7 @@ public class Comment implements Serializable {
 	/**
 	 * The date when it was written the comment.
 	 */
-	private String date;
+	private Date date;
 	/**
 	 * The object {@code User} that has written this comment.
 	 * {@see by.zhdanovich.rat.entity.User}
@@ -55,12 +56,12 @@ public class Comment implements Serializable {
 		this.text = text;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String data) {
-		this.date = data;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public User getUser() {

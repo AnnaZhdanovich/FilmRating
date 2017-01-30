@@ -34,7 +34,7 @@ public interface ICommonService {
 
 	void colculateRating() throws ServiceException;
 
-	int findUsersByRating(List<User> list, int offset, int noOfRecords, String type) throws ServiceException;
+	void findUsersByRating(List<User> list, String type) throws ServiceException;
 
 	int findUsersList(List<User> list,  int offset, int noOfRecords) throws ServiceException;
 }

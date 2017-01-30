@@ -1,5 +1,7 @@
 package by.zhdanovich.rat.entity;
 
+import java.util.Date;
+
 /**
  * Class {@code RequestOfUser} describes the request to administrator left by
  * the user.
@@ -25,7 +27,7 @@ public class RequestOfUser {
 	/**
 	 * The date when it was  written the request.
 	 */
-	private String date;
+	private Date date;
 
 	public RequestOfUser() {
 		user = new User();
@@ -39,11 +41,11 @@ public class RequestOfUser {
 		this.user = user;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

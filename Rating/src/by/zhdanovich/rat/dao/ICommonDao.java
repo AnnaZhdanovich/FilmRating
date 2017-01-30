@@ -34,18 +34,18 @@ public interface ICommonDao extends IDAO {
 
 	void findFilmComment(List<Comment> comments) throws DAOException;
 
-	void colculateFilmRating(Map<Integer, Integer> newCountFilm, Map<Integer, Integer> newRatingFilm)
+	void colculateFilmRating(Map<Integer, Integer> newCountFilm, Map<Integer, Float> newRatingFilm)
 			throws DAOException;
 
 	void takeCountFilm(Map<Integer, Integer> count) throws DAOException;
 
 	void updateCountFilm(Integer filmUid, Integer count) throws DAOException;
 
-	void colculateUserRating(Integer filmUid, Integer newRating) throws DAOException;
+	void colculateUserRating(Integer filmUid, Float newRating) throws DAOException;
 
 	int findListMain(List<Film> list, int offset, int noOfRecords) throws DAOException;
 
-	int findUsersByRating(List<User> list, int offset, int noOfRecords, String type) throws DAOException;
+	void findUsersByRating(List<User> list, String type) throws DAOException;
 
 	int takeCommentOfFilm(int id, List<Comment> list, int offset, int noOfRecords) throws DAOException;
 

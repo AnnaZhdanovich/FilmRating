@@ -35,8 +35,11 @@
 					<div class="name_person">
 						${firstname } <span class="type1">${comment.user.firstName}</span>
 					</div>
+					<div class="name_person">
+						ID <span class="type1">${comment.user.idUser}</span>
+					</div>
 					<div class="data_comment">
-						${data_add} <span class="type1">${comment.date}</span>
+						${data_add} <span class="type1"><fmt:formatDate type="date" value="${comment.date}" /></span>
 					</div>
 				</div>
 				<div class="comment_full">
@@ -59,9 +62,9 @@
 					</form>
 				</div>
 			</c:forEach>
-
+			
 			<c:if test="${not empty requestScope.comment}">
-				<c:if test="${requestScope.currentPage != 1}">
+				<c:if test="${sessionScope.currentPage != 1}">
 					<td><a
 						href="/Rating/MainController?command=find_added_comment&page=${sessionScope.currentPage-1}">${previous}</a></td>
 				</c:if>

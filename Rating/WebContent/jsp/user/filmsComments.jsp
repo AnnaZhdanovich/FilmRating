@@ -46,7 +46,9 @@
 					<hr>
 					<p>${element.text}</p>
 					<hr>
-					<p>${element.date}</p>
+					<p>
+						<fmt:formatDate type="date" value="${element.date}" />
+					</p>
 				</div>
 
 

@@ -88,7 +88,7 @@ ${user.role}
 										onClick="this.parentNode.submit(); return false;">${make_by_user}</a>
 								</form>
 							</c:if></td>
-						<td>${user.dateReg}</td>
+						<td><fmt:formatDate type="date" value="${user.dateReg}" /></td>
 						<c:if test="${user.status eq 'UNBLOCK'}">
 							<td>
 								<form method="post" action="MainController">

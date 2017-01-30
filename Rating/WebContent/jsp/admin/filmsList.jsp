@@ -70,7 +70,7 @@
 								</c:if>
 							</c:forEach></td>
 						<td>${film.rating}</td>
-						<td>${film.date}</td>
+						<td><fmt:formatDate type="date" value="${film.date}" /></td>
 						<td>
 							<form method="post" action="MainController">
 								<input type="hidden" name="command" value="remove_film">

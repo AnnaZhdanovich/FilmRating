@@ -8,7 +8,10 @@ package by.zhdanovich.rat.dao.util;
  */
 public final class DAOParameter {
 	public static final String FORMAT_DATA = "yyyy-MM-dd";
-	public static final int START_RATING = 0;
+	public static final int OFFSET_USER = 0;
+	public static final int LIMIT_USER = 7;
+	public static final float START_RATING = 0.0f;
+	public static final int START_RATING_USER = 0;
 	public static final String FM_TITLE = "fm_title";
 	public static final String FM_DATE = "fm_date";
 	public static final String FM_POSTER = "fm_poster";
@@ -54,8 +57,8 @@ public final class DAOParameter {
 	public static final String USER = "user";
 	public static final String UNBLOCK = "unblock";
 	public static final int COUNT = 0;
-	
-	private DAOParameter(){
-		
+
+	private DAOParameter() {
+
 	}
 }
