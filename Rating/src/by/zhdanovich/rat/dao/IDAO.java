@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import by.zhdanovich.rat.dao.exception.DAOException;
 import by.zhdanovich.rat.dao.pool.ConnectionPool;
 import by.zhdanovich.rat.dao.pool.ConnectionPoolException;
 import by.zhdanovich.rat.dao.pool.ProxyConnection;
@@ -32,13 +34,14 @@ public interface IDAO {
 	 * {@see by.zhdanovich.rat.dao.pool.ConnectionPool}
 	 * 
 	 * @param con
+	 * @throws DAOException 
 	 */
-	public static void closeConnection(ProxyConnection con) {
+	public static void closeConnection(ProxyConnection con) throws DAOException {
 		if (con != null) {
 			try {
 				ConnectionPool.getInstance().releaseConnection(con);
-			} catch (ConnectionPoolException e) {
-				log.error("Wrong of closing connection, it can not be closed", e);
+			} catch (ConnectionPoolException e) {				
+				throw new DAOException("Wrong of closing connection, it can not be closed", e);
 			}
 		}
 	}

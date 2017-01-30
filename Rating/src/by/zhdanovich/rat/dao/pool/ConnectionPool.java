@@ -17,12 +17,11 @@ import org.apache.logging.log4j.Logger;
  */
 
 public class ConnectionPool {
-	
+
 	private static Logger log = LogManager.getLogger(ConnectionPool.class);
 	private static final ConnectionPool INSTANCE = new ConnectionPool();
 	private static final int DEFAULT_POOL_SIZE = 5;
 	private BlockingQueue<ProxyConnection> connectionQueue;
-	private BlockingQueue<ProxyConnection> givenAwayConQueue;
 	private String url;
 	private String user;
 	private String password;
@@ -30,6 +29,7 @@ public class ConnectionPool {
 	private String driverName;
 
 	/**
+	 * Returns a single object
 	 * 
 	 * @return reference on the single object of ConnectionPool.
 	 */
@@ -70,7 +70,6 @@ public class ConnectionPool {
 		} catch (ClassNotFoundException e) {
 			throw new ConnectionPoolException("SQLException in ConnectionPool", e);
 		}
-		givenAwayConQueue = new ArrayBlockingQueue<ProxyConnection>(poolSize);
 		connectionQueue = new ArrayBlockingQueue<ProxyConnection>(poolSize);
 
 		for (int i = 0; i < poolSize; i++) {
@@ -82,7 +81,6 @@ public class ConnectionPool {
 				throw new ConnectionPoolException("SQLException in ConnectionPool", e);
 			}
 		}
-
 	}
 
 	public void dispose() {
@@ -96,17 +94,20 @@ public class ConnectionPool {
 	 */
 	private void closeConnectionsQueue(BlockingQueue<ProxyConnection> queue) {
 		ProxyConnection connection;
-		try {
-			for (int i = 0; i < poolSize; i++) {
+
+		for (int i = 0; i < poolSize; i++) {
+			try {
 				connection = queue.take();
 				connection.realClose();
+			} catch (SQLException | InterruptedException e) {
+				log.error("Error closing connections", e);
 			}
-		} catch (SQLException | InterruptedException e) {
-			log.error("Error closing connections", e);
 		}
 	}
 
 	/**
+	 * The method takes the connection from the queue of free connections and
+	 * lays down in all of the compounds employed.
 	 * 
 	 * @return reference on object of ProxyConnection
 	 * @throws ConnectionPoolException
@@ -117,12 +118,9 @@ public class ConnectionPool {
 
 		try {
 			connection = connectionQueue.take();
-			givenAwayConQueue.put(connection);
-
 		} catch (InterruptedException e) {
 			throw new ConnectionPoolException("Error connecting to the data source.", e);
 		}
-
 		return connection;
 	}
 
@@ -133,22 +131,13 @@ public class ConnectionPool {
 	 * @throws ConnectionPoolException
 	 */
 	public void releaseConnection(ProxyConnection connection) throws ConnectionPoolException {
-
-		if (connection == null) {
-			throw new ConnectionPoolException("null SQLException in ConnectionPool");
-		}
 		try {
 			if (!connection.getAutoCommit()) {
 				connection.setAutoCommit(true);
 			}
-		} catch (SQLException e) {
-			throw new ConnectionPoolException("SQLException in ConnectionPool", e);
-		}
-		givenAwayConQueue.remove(connection);
-		try {
 			connectionQueue.put(connection);
-		} catch (InterruptedException e) {
-			log.error("Error releasing connections", e);
+		} catch (SQLException | InterruptedException e) {
+			throw new ConnectionPoolException("SQLException in ConnectionPool", e);
 		}
 	}
 }
