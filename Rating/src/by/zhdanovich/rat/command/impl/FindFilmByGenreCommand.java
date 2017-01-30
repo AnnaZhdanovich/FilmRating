@@ -56,14 +56,16 @@ public class FindFilmByGenreCommand implements ICommand {
 				int noOfRecords = clientService.findFilmByGenre(idGanre, list,
 						(page - 1) * CommandParameter.RECORDS_PER_PAGE, CommandParameter.RECORDS_PER_PAGE);
 
-				session.setAttribute(CommandParameter.TARGET, CommandParameter.FIND_BY_GENRE);
+				
 				if (noOfRecords != 0) {
+					session.setAttribute(CommandParameter.TARGET, CommandParameter.FIND_BY_GENRE);
 					int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / CommandParameter.RECORDS_PER_PAGE);
 					session.setAttribute(CommandParameter.NO_OF_PAGES, noOfPages);
 					session.setAttribute(CommandParameter.CURRENT_PAGES, page);
 					request.setAttribute(CommandParameter.FILMS, list);
 					session.setAttribute(CommandParameter.GENRES, genre);
 				} else {
+					session.setAttribute(CommandParameter.TARGET, CommandParameter.MAIN);
 					request.setAttribute(CommandParameter.ERROR_SEARCH, CommandParameter.MESSAGE);
 				}
 			} else {

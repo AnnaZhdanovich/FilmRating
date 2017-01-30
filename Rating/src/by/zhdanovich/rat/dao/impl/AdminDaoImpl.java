@@ -55,7 +55,7 @@ public class AdminDaoImpl implements IAdminDao {
 	private static final String SQL_FIND_REMOVE_FILM_PERSONALITY = "SELECT ac_f_name, ac_l_name, ac_role from film JOIN film_has_actor on fm_uid=film_fm_uid JOIN actor on actor_ac_uid=ac_uid WHERE fm_uid =?";
 	private static final String SQL_FIND_REMOVE_FILM_GENRE = "SELECT gn_name,  gn_uid FROM film JOIN film_has_genre on fm_uid=film_fm_uid JOIN genre on genre_gn_uid=gn_uid WHERE fm_uid =?";
 	private static final String SQL_FIND_USER_BY_LOGIN = "SELECT  us_f_name, us_login, us_email, us_role, (Select count(as_assessment) FROM assessment WHERE user_us_uid = us_uid GROUP BY (user_us_uid)) as us_assessment,(Select count(as_recal) FROM assessment WHERE user_us_uid = us_uid GROUP BY (user_us_uid))as us_recal, us_status, us_image, us_rating, us_reg_date, us_uid FROM user LEFT JOIN assessment on user.us_uid=assessment.user_us_uid WHERE us_login=? ";
-	private static final String SQL_TAKE_REQUESTS = "SELECT  rq_uid, rq_text, rq_status, us_login, rq_date FROM request JOIN user on user_us_uid =us_uid WHERE rq_status ='new' GROUP BY rq_uid limit ?,?";
+	private static final String SQL_TAKE_REQUESTS = "SELECT  rq_uid, rq_text, rq_status, us_uid, us_f_name, rq_date FROM request JOIN user on user_us_uid =us_uid WHERE rq_status ='new' GROUP BY rq_uid limit ?,?";
 	private static final String SQL_MARKER_REQUEST = "UPDATE request SET rq_status=? WHERE rq_uid=?";
 	private static final String SQL_SELECT_ROWS = "SELECT FOUND_ROWS()";
 	private static final String SQL_FIND_AMOUNT_FILMS = "Select COUNT(*) FROM film;";
@@ -820,10 +820,11 @@ public class AdminDaoImpl implements IAdminDao {
 			while (rs.next()) {
 				request = new RequestOfUser();
 				request.setIdRequest(rs.getInt(DAOParameter.RQ_UID));
+				request.getUser().setFirstName(rs.getString(DAOParameter.US_F_NAME));
 				request.setText(rs.getString(DAOParameter.RQ_TEXT));
 				request.setStatus(StatusOfRequest.valueOf(rs.getString(DAOParameter.RQ_STATUS).toUpperCase()));
 				request.setDate(rs.getString(DAOParameter.RQ_DATE));
-				request.getUser().setLogin(rs.getString(DAOParameter.US_LOGIN));
+				request.getUser().setIdUser(rs.getInt(DAOParameter.US_UID));
 				requests.add(request);
 			}
 			rs.close();

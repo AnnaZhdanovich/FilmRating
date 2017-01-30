@@ -1,13 +1,13 @@
 .wrap_comment {
-	width: 100%;	
+	width: 100%;
 	margin: 0 auto;
-	padding: 0 auto;	
+	padding: 0 auto;
+	border: 1px solid #808080;
 }
 
 .wrap_n {
 	width: 100%;
-	height: 80px;
-	
+	height: 80 px;
 }
 
 .wrap_poster_film {
@@ -31,14 +31,11 @@
 	height: 38px;
 	font-family: 'Neucha', cursive;
 	text-align: center;
-    font-size: 25px;
-	
+	font-size: 25px;
 }
 
 .comment_full {
 	width: 100%;
-	border: 1px solid #ffffff;
-	background: #ffffff;
 }
 
 .data_comment {
@@ -50,17 +47,13 @@
 	font-size: 25px;
 }
 
-
-
 .wrap_butt {
 	float: left;
-	width: 50%;
-	height: 30px;	
-	
-
+	width: 100%;
+	height: 30px;
 	font-family: 'Neucha', cursive;
 	text-align: center;
-	border: none;		
+	border: none;
 	background: #efefef;
 	font-size: 25px;
 }
@@ -80,5 +73,5 @@
 	float: left;
 	width: 50%;
 	height: 80px;
-	background:#e5e5e5;
+	background: #e5e5e5;
 }

@@ -30,18 +30,16 @@
 			<c:forEach items="${requestScope.requests}" var="request">
 				<div class="wrap_comment">
 					<div class="wrap_n">
-
 						<div class="wrapp_first">
-							<div class="name_person">${user} ${request.user.login}</div>
-							<div class="name_person">${status_message}
-								${request.status}</div>
+							<div class="name_person">${user} ${request.user.firstName}</div>
+							<div class="name_person">ID ${request.user.idUser}</div>
 						</div>
 
 						<div class="wrapp_second">
+							<div class="data_comment">${status_message} ${request.status}</div>
 							<div class="data_comment">${date_message} ${request.date}</div>
 						</div>
 					</div>
-
 					<div class="comment_full">
 						<p>${request.text}</p>
 					</div>
@@ -53,16 +51,8 @@
 							<a href=" " onClick="this.parentNode.submit(); return false;">${assept}</a>
 						</form>
 					</div>
-					<div class="wrap_butt">
-						<form method="post" action="MainController">
-							<input type="hidden" name="command" value="marker_of_request">
-							<input type="hidden" name="type" value="rejected"> <input
-								type="hidden" name="idRequest" value="${request.idRequest}">
-							<a href=" " onClick="this.parentNode.submit(); return false;">${rejected}</a>
-						</form>
-					</div>
 				</div>
-
+				<hr>
 			</c:forEach>
 
 

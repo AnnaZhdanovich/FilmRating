@@ -67,16 +67,16 @@ public class FastSearchFilmCommand implements ICommand {
 				int noOfRecords = commonService.findFilmFasty(list, text,
 						(page - 1) * CommandParameter.RECORDS_PER_PAGE, CommandParameter.RECORDS_PER_PAGE);
 
-				session.setAttribute(CommandParameter.TARGET, CommandParameter.SEARCH_FILM_FASTY);
-
 				if (noOfRecords != 0) {
 					request.setAttribute(CommandParameter.FILMS, list);
 					int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / CommandParameter.RECORDS_PER_PAGE);
 					session.setAttribute(CommandParameter.NO_OF_PAGES, noOfPages);
 					session.setAttribute(CommandParameter.CURRENT_PAGES, page);
 					session.setAttribute(CommandParameter.TEXT, text);
+					session.setAttribute(CommandParameter.TARGET, CommandParameter.SEARCH_FILM_FASTY);
 				} else {
 					request.setAttribute(CommandParameter.ERROR_SEARCH, CommandParameter.MESSAGE);
+					session.setAttribute(CommandParameter.TARGET, CommandParameter.MAIN);
 				}
 			} else {
 				session.setAttribute(CommandParameter.TARGET, CommandParameter.MAIN);

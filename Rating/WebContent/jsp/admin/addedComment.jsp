@@ -59,31 +59,32 @@
 					</form>
 				</div>
 			</c:forEach>
+
+			<c:if test="${not empty requestScope.comment}">
+				<c:if test="${requestScope.currentPage != 1}">
+					<td><a
+						href="/Rating/MainController?command=find_added_comment&page=${sessionScope.currentPage-1}">${previous}</a></td>
+				</c:if>
+				<table border="1" cellpadding="5" cellspacing="5">
+					<tr>
+						<c:forEach begin="1" end="${sessionScope.noOfPages}" var="i">
+							<c:choose>
+								<c:when test="${sessionScope.currentPage eq i}">
+									<td>${i}</td>
+								</c:when>
+								<c:otherwise>
+									<td><a
+										href="/Rating/MainController?command=find_added_comment&page=${i}">${i}</a></td>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</tr>
+				</table>
+				<c:if test="${sessionScopen.currentPage lt noOfPages}">
+					<td><a
+						href="/Rating/MainController?command=find_added_comment&page=${sessionScope.currentPage + 1}">${next}</a></td>
+				</c:if>
+			</c:if>
 		</div>
-		<c:if test="${not empty requestScope.comment}">
-			<c:if test="${requestScope.currentPage != 1}">
-				<td><a
-					href="/Rating/MainController?command=find_added_comment&page=${sessionScope.currentPage-1}">${previous}</a></td>
-			</c:if>
-			<table border="1" cellpadding="5" cellspacing="5">
-				<tr>
-					<c:forEach begin="1" end="${sessionScope.noOfPages}" var="i">
-						<c:choose>
-							<c:when test="${sessionScope.currentPage eq i}">
-								<td>${i}</td>
-							</c:when>
-							<c:otherwise>
-								<td><a
-									href="/Rating/MainController?command=find_added_comment&page=${i}">${i}</a></td>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</tr>
-			</table>
-			<c:if test="${sessionScopen.currentPage lt noOfPages}">
-				<td><a
-					href="/Rating/MainController?command=find_added_comment&page=${sessionScope.currentPage + 1}">${next}</a></td>
-			</c:if>
-		</c:if>
 	</div>
 </body>

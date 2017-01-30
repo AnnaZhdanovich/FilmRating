@@ -86,7 +86,7 @@ public class FindFilmsListCommand implements ICommand {
 					session.setAttribute(CommandParameter.TARGET, goal);
 
 				} else {
-					session.setAttribute(CommandParameter.TARGET, goal);
+					session.setAttribute(CommandParameter.TARGET,  CommandParameter.MAIN);
 					request.setAttribute(CommandParameter.ERROR_SEARCH, CommandParameter.MESSAGE);
 				}
 			} else {

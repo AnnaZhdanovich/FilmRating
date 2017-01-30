@@ -1,13 +1,11 @@
 package by.zhdanovich.rat.command.factory;
 
 import javax.servlet.http.HttpServletRequest;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import by.zhdanovich.rat.command.ICommand;
 import by.zhdanovich.rat.command.util.CommandParameter;
 import by.zhdanovich.rat.command.util.Validator;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 /**
  * Class {@code CommandHelper} is used to determine the object of the command from the
  * presented  data with the request.
