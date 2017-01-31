@@ -121,7 +121,7 @@
 						<label>${avatar}</label>
 					</div>
 					<div class="input">
-						<input type="file" class="n" name="file" id="file" />
+						<input type="file" required class="n" name="file" id="file" />
 					</div>
 					<input type="submit" class="sub" value="${change_go}">
 				</form>

@@ -54,7 +54,7 @@ public class LoadFileCommand implements ICommand {
 			int id = 0;
 			String type = request.getParameter(CommandParameter.TYPE);
 			if (Validator.check(type)) {
-
+				
 				if (type.equals(CommandParameter.FILM)
 						&& Validator.check(request.getParameter(CommandParameter.FILM_UID))) {
 
@@ -71,15 +71,14 @@ public class LoadFileCommand implements ICommand {
 					}
 				}
 
-				final String path = request.getServletContext().getRealPath("images");
-
+				final String path = request.getServletContext().getRealPath(CommandParameter.FOLDER);
+				
 				if (request.getPart(CommandParameter.FILE) != null) {
 					Part filePart = request.getPart(CommandParameter.FILE);
 					ServiceFactory sevice = ServiceFactory.getInstance();
 					ICommonService commonService = sevice.getCommonService();
-
 					boolean result = commonService.addImage(filePart, path, id, type);
-
+					
 					if (result) {
 						session.setAttribute(CommandParameter.MESSAGE_UPDATE_USER, CommandParameter.MESSAGE);
 
