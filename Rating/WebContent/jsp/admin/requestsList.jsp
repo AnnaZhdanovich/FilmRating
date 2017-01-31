@@ -28,18 +28,12 @@
 	<div class="wrapper">
 		<div class="main">
 			<c:forEach items="${requestScope.requests}" var="request">
-				<div class="wrap_comment">
-					<div class="wrap_n">
+				<div class="wrap_comment">					
 						<div class="wrapp_first">
-							<div class="name_person">${user} ${request.user.firstName}</div>
-							<div class="name_person">ID ${request.user.idUser}</div>
-						</div>
-
-						<div class="wrapp_second">
-							<div class="data_comment">${status_message} ${request.status}</div>
-							<div class="data_comment">${date_message} <fmt:formatDate type="date" value="${request.date}" /></div>
-						</div>
-					</div>
+							<div class="info_us">${user} ${request.user.firstName}</div>
+							<div class="info_us">ID ${request.user.idUser}</div>				
+							<div class="info_us">${date_message} <fmt:formatDate type="date" value="${request.date}" /></div>
+						</div>					
 					<div class="comment_full">
 						<p>${request.text}</p>
 					</div>

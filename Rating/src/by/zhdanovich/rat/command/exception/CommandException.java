@@ -1,4 +1,4 @@
-package by.zhdanovich.rat.command;
+package by.zhdanovich.rat.command.exception;
 
 public class CommandException extends Exception {
 	private static final long serialVersionUID = 1L;

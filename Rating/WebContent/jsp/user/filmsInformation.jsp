@@ -45,7 +45,7 @@
 				<h2>${film.title}</h2>
 				<hr>
 				<h3>${rating_film}</h3>
-				<p>${film.rating}${out_of_ten}</p>
+				<p>${film.rating} ${out_of_ten}</p>
 				<hr>
 				<h3>${year}</h3>
 				<p>${film.year}</p>
@@ -76,7 +76,7 @@
 					</c:forEach>
 				</p>
 				<h3>${add_date}</h3>
-				<p>${film.date}</p>
+				<p><fmt:formatDate type="date" value="${film.date}" /></p>
 			
 			<hr>
 			<h3>${plot}</h3>

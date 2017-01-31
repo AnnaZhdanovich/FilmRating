@@ -1,4 +1,4 @@
-package by.zhdanovich.rat.service;
+package by.zhdanovich.rat.service.exception;
 
 public class ServiceException extends Exception {
 	private static final long serialVersionUID = 1L;
