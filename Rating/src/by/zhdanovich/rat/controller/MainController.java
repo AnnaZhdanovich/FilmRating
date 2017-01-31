@@ -83,6 +83,7 @@ public class MainController extends HttpServlet {
 		Carrier carrier = new Carrier();
 		CommandFactory factory = new CommandFactory();
 		ICommand command = factory.defineCommand(request);
+		
 		try {
 			if(command!=null){
 			command.execute(request, carrier);

@@ -35,7 +35,7 @@ public class Sender {
 		RequestDispatcher dispatcher;
 		switch (carrier.get(ControllerParameter.METHOD)) {
 		case ControllerParameter.FORWARD:
-			takePreviousUrl(request);
+			    takePreviousUrl(request);
 			if (carrier.get(ControllerParameter.PAGE) != null && !carrier.get(ControllerParameter.PAGE).isEmpty()) {
 				dispatcher = request.getRequestDispatcher(carrier.get(ControllerParameter.PAGE).trim());
 				dispatcher.forward(request, response);

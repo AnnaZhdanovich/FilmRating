@@ -53,6 +53,10 @@
 <c:if test="${message != null}">
 	<fmt:message bundle="${loc}" key="localization.errorAdd" var="errorAdd" />
 </c:if>
+<c:set var="message" value="${sessionScope.errorAdd}"/>
+<c:if test="${message != null}">
+	<fmt:message bundle="${loc}" key="localization.errorAdd" var="errorAdd" />
+</c:if>
 <c:set var="message" value="${requestScope.errorAuthorisationMessage}" />
 <c:if test="${message != null}">
 	<fmt:message bundle="${loc}"

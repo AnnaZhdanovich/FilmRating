@@ -84,7 +84,7 @@
 							<label>${title}</label> <span>*</span>
 							<div class="span">
 								<input class="list" type="text" name="title" required
-									pattern="[A-ZА-Яa-zа-яЁё0-9-]+$" title="${title_tamplate}"
+									pattern="[A-ZА-Яa-zа-яЁё0-9-\s]+$" title="${title_tamplate}"
 									value="${requestScope.film.title}">
 							</div>
 						</div>
