@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="css/generalStyle.css" type="text/css"
 	media="screen">
-<script src="js/login.js"></script>
+
 <link href="https://fonts.googleapis.com/css?family=Neucha"
 	rel="stylesheet">
 </head>
@@ -170,9 +170,9 @@
 							action="MainController">
 
 							<input type="hidden" name="command" value="authorisation" /> <input
-								name="log" class="login" type="text" placeholder="${login1}" />
+								required name="log" class="login" type="text" placeholder="${login1}" />
 
-							<input name="pass" class="password" type="password"
+							<input required name="pass" class="password" type="password"
 								placeholder=" ${password1}" /> <input name="go"
 								class="sub_search" type="submit" value="${enter}" />
 						</form>
@@ -229,12 +229,13 @@
 			${greet} ${sessionScope.name}
 			</c:if>
 				<hr>
-				<span class="err-info" id="err-info">${fill_in}</span> ${user_block}
+				${user_block}
 				${user_not_found} ${error_data} ${errorFreeLogin}
 				${errorRegistrationMessage} ${errorAuthorisationMessage} ${error}
 				${error_give_assessment} ${errorSerch} ${messageUpdateUuser}
-				${errorUpdateMessage}${error_input_data } ${addRequest}
+				${errorUpdateMessage}${error_input_data} ${addRequest}
 				${addMessage}${error_give_comment}
+				
 			</div>
 		</div>
 	</div>

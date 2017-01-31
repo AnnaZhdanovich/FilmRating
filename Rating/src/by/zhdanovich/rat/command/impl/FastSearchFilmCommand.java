@@ -58,7 +58,7 @@ public class FastSearchFilmCommand implements ICommand {
 				page = Integer.parseInt(pageIn);
 			}
 
-			if (Validator.check(text)) {
+			
 				List<Film> list = new ArrayList<Film>();
 
 				ServiceFactory sevice = ServiceFactory.getInstance();
@@ -78,10 +78,7 @@ public class FastSearchFilmCommand implements ICommand {
 					request.setAttribute(CommandParameter.ERROR_SEARCH, CommandParameter.MESSAGE);
 					session.setAttribute(CommandParameter.TARGET, CommandParameter.MAIN);
 				}
-			} else {
-				session.setAttribute(CommandParameter.TARGET, CommandParameter.MAIN);
-				request.setAttribute(CommandParameter.ERROR_DATA, CommandParameter.MESSAGE);
-			}
+			
 
 		} catch (ServiceException e) {
 			throw new CommandException("Wrong executing the command", e);
